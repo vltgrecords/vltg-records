@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VLTG RECORDS | SUBMIT</title>
+
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+
+    <meta property="og:title" content="VLTG RECORDS">
+    <meta property="og:description" content="Official Demo Submission Portal.">
+    <meta property="og:image" content="logo.png"> 
+    <meta property="og:type" content="website">
+
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;600;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -28,7 +37,8 @@
         input { width: 100%; padding: 16px; background: rgba(0, 0, 0, 0.5); border: 2px solid transparent; border-radius: 12px; color: #fff; outline: none; transition: 0.3s; }
         input:focus { border-color: #39FF14; box-shadow: 0 0 15px rgba(57, 255, 20, 0.3); }
         button { width: 100%; padding: 18px; border: none; border-radius: 12px; background: linear-gradient(90deg, #39FF14, #00C6FF);
-                 color: #000; font-weight: 800; font-size: 1.1rem; text-transform: uppercase; cursor: pointer; }
+                 color: #000; font-weight: 800; font-size: 1.1rem; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
     </style>
 </head>
 <body>
@@ -62,12 +72,14 @@
         status.innerHTML = "SENDING...";
         status.disabled = true;
 
+        // AJAX connection to Formspree
         fetch("https://formspree.io/f/xqeqvbgk", {
           method: "POST",
           body: data,
           headers: { 'Accept': 'application/json' }
         }).then(response => {
           if (response.ok) {
+            // Success redirect
             window.location.href = "success.html"; 
           } else {
             status.innerHTML = "ERROR! TRY AGAIN.";
