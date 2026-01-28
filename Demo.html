@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VLTG RECORDS | SUBMIT DEMOS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;600;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- RESET --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            /* Dark, textured background with subtle green/blue light */
+            background: radial-gradient(circle at 20% 20%, rgba(0, 255, 0, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(0, 200, 255, 0.1) 0%, transparent 50%),
+                        #0a0a0a url('https://www.transparenttextures.com/patterns/concrete-wall.png');
+            
+            color: #ffffff;
+            font-family: 'Kanit', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* --- THE GLASS CARD --- */
+        .card {
+            background: rgba(15, 15, 15, 0.8); /* Darker for contrast */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 255, 0, 0.1); /* Subtle green border */
+            border-radius: 24px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        /* --- LOGO --- */
+        .logo-img {
+            width: 130px;
+            margin-bottom: 20px;
+            /* Glow effect matching the logo's colors */
+            filter: drop-shadow(0 0 15px rgba(0, 255, 0, 0.3)) drop-shadow(0 0 5px rgba(0, 200, 255, 0.3)); 
+        }
+
+        /* --- TEXT --- */
+        h1 {
+            font-weight: 800;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            /* Green to Blue Gradient Text */
+            background: linear-gradient(90deg, #39FF14, #00C6FF); 
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            font-weight: 300;
+            color: #ccc;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        /* --- INPUTS --- */
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fff;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            color: #fff;
+            font-family: 'Kanit', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        /* Green glow on focus */
+        input:focus {
+            background: rgba(0, 0, 0, 0.7);
+            border-color: #39FF14;
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
+        }
+
+        /* --- BUTTON --- */
+        button {
+            width: 100%;
+            padding: 18px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 12px;
+            /* Green to Blue Gradient Button */
+            background: linear-gradient(90deg, #39FF14, #00C6FF);
+            color: #000; /* Black text for better contrast on bright colors */
+            font-family: 'Kanit', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0, 198, 255, 0.2);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(57, 255, 20, 0.4);
+        }
+        
+        button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <img src="logo.png" alt="VLTG Logo" class="logo-img">
+        
+        <h1>VLTG Records</h1>
+        <p>SEND US YOUR BEST WORK</p>
+
+        <form action="https://formspree.io/f/xqeqvbgk" method="POST">
+            
+            <input type="hidden" name="_next" value="success.html">
+
+            <div class="input-group">
+                <label>Artist Name</label>
+                <input type="text" name="artistName" required placeholder="Who are you?">
+            </div>
+
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" name="email" required placeholder="Where do we reply?">
+            </div>
+
+            <div class="input-group">
+                <label>Private Link</label>
+                <input type="url" name="trackLink" required placeholder="SoundCloud / Drive Link">
+            </div>
+
+            <button type="submit">Submit Demo</button>
+        </form>
+    </div>
+
+</body>
+</html>
