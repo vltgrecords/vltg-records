@@ -1,0 +1,45 @@
+<form id="vltg-form">
+    <div class="input-group">
+        <label>Artist Name</label>
+        <input type="text" name="artistName" required placeholder="Who are you?">
+    </div>
+    <div class="input-group">
+        <label>Email</label>
+        <input type="email" name="email" required placeholder="Where do we reply?">
+    </div>
+    <div class="input-group">
+        <label>Private Link</label>
+        <input type="url" name="trackLink" required placeholder="SoundCloud / Drive Link">
+    </div>
+    <button type="submit" id="submit-btn">Submit Demo</button>
+</form>
+
+<script>
+  var form = document.getElementById("vltg-form");
+  
+  async function handleSubmit(event) {
+    event.preventDefault();
+    var status = document.getElementById("submit-btn");
+    var data = new FormData(event.target);
+    
+    status.innerHTML = "SENDING...";
+
+    fetch("https://formspree.io/f/xqeqvbgk", {
+      method: "POST",
+      body: data,
+      headers: {
+          'Accept': 'application/json'
+      }
+    }).then(response => {
+      if (response.ok) {
+        // THIS IS THE REDIRECT
+        window.location.href = "success.html";
+      } else {
+        status.innerHTML = "ERROR! TRY AGAIN.";
+      }
+    }).catch(error => {
+      status.innerHTML = "ERROR! TRY AGAIN.";
+    });
+  }
+  form.addEventListener("submit", handleSubmit)
+</script>
