@@ -11,7 +11,7 @@
 body {
 background: radial-gradient(circle at 20% 20%, rgba(0, 255, 0, 0.1) 0%, transparent 50%),
 radial-gradient(circle at 80% 80%, rgba(0, 200, 255, 0.1) 0%, transparent 50%),
-#0a0a0a url('');
+#0a0a0a;
 color: #ffffff; font-family: 'Kanit', sans-serif; min-height: 100vh;
 display: flex; align-items: center; justify-content: center; padding: 20px;
 }
@@ -24,8 +24,9 @@ padding: 40px 30px; width: 100%; max-width: 450px; text-align: center;
 h1 { font-weight: 800; font-size: 2rem; text-transform: uppercase;
 background: linear-gradient(90deg, #39FF14, #00C6FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 p { color: #ccc; margin-bottom: 30px; font-size: 0.95rem; }
-input { width: 100%; padding: 16px; background: rgba(0, 0, 0, 0.5); border: 2px solid transparent; border-radius: 12px; color: #fff; outline: none; margin-bottom: 15px; font-family: 'Kanit', sans-serif; }
-input:focus { border-color: #39FF14; box-shadow: 0 0 15px rgba(57, 255, 20, 0.3); }
+form { display: flex; flex-direction: column; gap: 15px; }
+input { width: 100%; padding: 16px; background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: #fff; outline: none; font-family: 'Kanit', sans-serif; }
+input:focus { border-color: #39FF14; }
 button { width: 100%; padding: 18px; border: none; border-radius: 12px; background: linear-gradient(90deg, #39FF14, #00C6FF);
 color: #000; font-weight: 800; font-size: 1.1rem; text-transform: uppercase; cursor: pointer; font-family: 'Kanit', sans-serif; }
 .insta-btn { margin-top: 25px; display: inline-block; color: #fff; text-decoration: none; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.3); padding: 10px 20px; border-radius: 50px; transition: 0.3s; }
