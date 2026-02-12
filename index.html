@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>VLTG Records – Demo Drop</title>
+  <title>VLTG Records – Demo Submissions</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="icon" type="image/png" href="favicon.png">
@@ -61,6 +61,7 @@
       font-size: 11px;
       opacity: 0.6;
       margin-bottom: 18px;
+      letter-spacing: 1px;
     }
 
     .rules {
@@ -122,9 +123,14 @@
       color: #fff;
       padding: 14px 18px;
       font-size: 12px;
-      display: none;
       z-index: 9999;
       border-top: 1px solid rgba(255,255,255,0.1);
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+    }
+
+    #cookieBanner.show {
+      transform: translateY(0);
     }
 
     #cookieBanner a {
@@ -153,17 +159,16 @@
     </div>
 
     <h1>VLTG RECORDS</h1>
-    <div class="subtitle">DEMO DROP</div>
+    <div class="subtitle">DEMO SUBMISSIONS</div>
 
     <div class="rules">
       Send original demo tracks only.<br>
       No remixes. No bootlegs.<br>
-      SoundCloud links required.
+      Submit via SoundCloud track link.
     </div>
 
     <input type="text" placeholder="ARTIST NAME" required>
     <input type="email" placeholder="EMAIL" required>
-    <input type="url" placeholder="SOUNDCLOUD PROFILE LINK" required>
     <input type="url" placeholder="SOUNDCLOUD TRACK LINK" required>
 
     <button>SEND DEMO</button>
@@ -206,24 +211,27 @@
 
   <!-- COOKIE SCRIPT -->
   <script>
+    const banner = document.getElementById("cookieBanner");
+    const settings = document.getElementById("cookieSettings");
+
     function acceptCookies() {
       localStorage.setItem("vltg_cookie_consent", "true");
-      document.getElementById("cookieBanner").style.display = "none";
+      banner.classList.remove("show");
     }
 
     function openCookieSettings() {
-      document.getElementById("cookieSettings").style.display = "block";
+      settings.style.display = "block";
     }
 
     function saveCookieSettings() {
       localStorage.setItem("vltg_cookie_consent", "true");
-      document.getElementById("cookieSettings").style.display = "none";
-      document.getElementById("cookieBanner").style.display = "none";
+      settings.style.display = "none";
+      banner.classList.remove("show");
     }
 
     window.onload = function () {
       if (!localStorage.getItem("vltg_cookie_consent")) {
-        document.getElementById("cookieBanner").style.display = "block";
+        banner.classList.add("show");
       }
     };
   </script>
