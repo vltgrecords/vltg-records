@@ -5,14 +5,11 @@
   <title>VLTG Records – Demo Submissions</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" href="favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Orbitron', sans-serif;
-    }
+    * { box-sizing: border-box; font-family: 'Orbitron', sans-serif; }
 
     body {
       margin: 0;
@@ -28,32 +25,26 @@
       width: 360px;
       padding: 32px;
       border-radius: 22px;
-      background: rgba(10, 10, 10, 0.9);
-      border: 1px solid rgba(0, 255, 140, 0.35);
-      box-shadow:
-        0 0 28px rgba(0,255,140,0.18),
-        inset 0 0 20px rgba(0,255,140,0.08);
+      background: rgba(10,10,10,0.9);
+      border: 1px solid rgba(0,255,140,0.35);
+      box-shadow: 0 0 28px rgba(0,255,140,0.18);
     }
 
     .logo {
       width: 90px;
-      height: 90px;
       margin: 0 auto 14px;
     }
 
     .logo img {
       width: 100%;
-      height: 100%;
-      object-fit: contain;
       filter: drop-shadow(0 0 12px rgba(0,255,140,0.6));
     }
 
     h1 {
       text-align: center;
-      font-size: 24px;
-      letter-spacing: 1.5px;
-      margin: 6px 0;
       color: #00ff8c;
+      margin: 6px 0;
+      font-size: 24px;
     }
 
     .subtitle {
@@ -61,7 +52,6 @@
       font-size: 11px;
       opacity: 0.6;
       margin-bottom: 18px;
-      letter-spacing: 1px;
     }
 
     .rules {
@@ -74,7 +64,7 @@
 
     input {
       width: 100%;
-      padding: 13px 14px;
+      padding: 13px;
       margin-bottom: 14px;
       border-radius: 12px;
       background: rgba(0,0,0,0.7);
@@ -84,9 +74,7 @@
       outline: none;
     }
 
-    input:focus {
-      border-color: #00ff8c;
-    }
+    input:focus { border-color: #00ff8c; }
 
     button {
       width: 100%;
@@ -98,6 +86,29 @@
       font-weight: 800;
       font-size: 13px;
       cursor: pointer;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    button.active {
+      animation: pulse 0.6s ease;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .tooltip {
+      font-size: 10px;
+      text-align: center;
+      margin-top: 8px;
+      opacity: 0.5;
     }
 
     .footer {
@@ -123,20 +134,15 @@
       color: #fff;
       padding: 14px 18px;
       font-size: 12px;
-      z-index: 9999;
       border-top: 1px solid rgba(255,255,255,0.1);
       transform: translateY(100%);
       transition: transform 0.4s ease;
+      z-index: 9999;
     }
 
-    #cookieBanner.show {
-      transform: translateY(0);
-    }
+    #cookieBanner.show { transform: translateY(0); }
 
-    #cookieBanner a {
-      color: #00ff8c;
-      text-decoration: none;
-    }
+    #cookieBanner a { color: #00ff8c; text-decoration: none; }
 
     #cookieSettings {
       display: none;
@@ -144,8 +150,8 @@
       inset: 0;
       background: rgba(0,0,0,0.85);
       color: #fff;
-      z-index: 10000;
       padding: 40px;
+      z-index: 10000;
       font-size: 13px;
     }
   </style>
@@ -155,68 +161,99 @@
 
   <div class="card">
     <div class="logo">
-      <img src="logo.png" alt="VLTG Records Logo">
+      <img src="logo.png" alt="VLTG Records">
     </div>
 
     <h1>VLTG RECORDS</h1>
     <div class="subtitle">DEMO SUBMISSIONS</div>
 
     <div class="rules">
-      Send original demo tracks only.<br>
+      Original demos only.<br>
       No remixes. No bootlegs.<br>
-      Submit via SoundCloud track link.
+      SoundCloud track links only.
     </div>
 
-    <input type="text" placeholder="ARTIST NAME" required>
-    <input type="email" placeholder="EMAIL" required>
-    <input type="url" placeholder="SOUNDCLOUD TRACK LINK" required>
+    <input type="text" id="name" placeholder="ARTIST NAME">
+    <input type="email" id="email" placeholder="EMAIL">
+    <input type="url" id="track" placeholder="SOUNDCLOUD TRACK LINK">
 
-    <button>SEND DEMO</button>
+    <button id="submitBtn" disabled>SEND DEMO</button>
+    <div class="tooltip" id="tooltip">
+      Fill all fields & choose cookie preference
+    </div>
 
     <div class="footer">
-      <a href="terms.html">Terms of Use</a> |
-      <a href="privacy.html">Privacy Policy</a> |
-      <a href="cookies.html">Cookie Policy</a>
+      <a href="terms.html">Terms</a> |
+      <a href="privacy.html">Privacy</a> |
+      <a href="cookies.html">Cookies</a>
     </div>
   </div>
 
   <!-- COOKIE BANNER -->
   <div id="cookieBanner">
-    We use cookies to ensure basic site functionality.
-    By continuing, you agree to our
-    <a href="privacy.html">Privacy Policy</a> and
-    <a href="cookies.html">Cookie Policy</a>.
+    We use essential cookies only.
+    <a href="privacy.html">Privacy</a> &
+    <a href="cookies.html">Cookies</a>
     <br><br>
-    <button onclick="acceptCookies()" style="background:#00ff8c;border:none;padding:6px 12px;font-weight:700;cursor:pointer;">
-      Accept
-    </button>
-    <button onclick="openCookieSettings()" style="background:none;border:1px solid #555;color:#fff;padding:6px 12px;margin-left:6px;cursor:pointer;">
-      Cookie Settings
-    </button>
+    <button onclick="acceptCookies()">Accept</button>
+    <button onclick="denyCookies()" style="margin-left:6px;background:none;border:1px solid #555;color:#fff;">Deny</button>
+    <button onclick="openCookieSettings()" style="margin-left:6px;background:none;border:1px solid #555;color:#fff;">Settings</button>
   </div>
 
   <!-- COOKIE SETTINGS -->
   <div id="cookieSettings">
     <h3>Cookie Settings</h3>
-    <p>Essential cookies are required for basic site functionality.</p>
-    <label>
-      <input type="checkbox" checked disabled>
-      Essential cookies
-    </label>
-    <br><br>
-    <button onclick="saveCookieSettings()" style="background:#00ff8c;border:none;padding:8px 14px;font-weight:700;cursor:pointer;">
-      Save & Continue
-    </button>
+    <p>Only essential cookies are used and cannot be disabled.</p>
+    <button onclick="saveCookieSettings()">Save & Continue</button>
   </div>
 
-  <!-- COOKIE SCRIPT -->
+  <!-- SCRIPT -->
   <script>
+    const inputs = document.querySelectorAll("input");
+    const btn = document.getElementById("submitBtn");
+    const tooltip = document.getElementById("tooltip");
     const banner = document.getElementById("cookieBanner");
     const settings = document.getElementById("cookieSettings");
 
+    function validSoundCloud(url) {
+      return url.includes("soundcloud.com");
+    }
+
+    function hasCookieDecision() {
+      return localStorage.getItem("vltg_cookie_consent");
+    }
+
+    function checkForm() {
+      let filled = true;
+      inputs.forEach(i => { if (!i.value.trim()) filled = false; });
+
+      const trackValid = validSoundCloud(document.getElementById("track").value);
+
+      if (filled && trackValid && hasCookieDecision()) {
+        btn.disabled = false;
+        btn.classList.add("active");
+        tooltip.textContent = "Ready to submit";
+      } else {
+        btn.disabled = true;
+        btn.classList.remove("active");
+        tooltip.textContent = trackValid
+          ? "Fill all fields & choose cookie preference"
+          : "Only SoundCloud track links allowed";
+      }
+    }
+
+    inputs.forEach(i => i.addEventListener("input", checkForm));
+
     function acceptCookies() {
-      localStorage.setItem("vltg_cookie_consent", "true");
+      localStorage.setItem("vltg_cookie_consent", "accepted");
       banner.classList.remove("show");
+      checkForm();
+    }
+
+    function denyCookies() {
+      localStorage.setItem("vltg_cookie_consent", "denied");
+      banner.classList.remove("show");
+      checkForm();
     }
 
     function openCookieSettings() {
@@ -224,15 +261,15 @@
     }
 
     function saveCookieSettings() {
-      localStorage.setItem("vltg_cookie_consent", "true");
+      localStorage.setItem("vltg_cookie_consent", "accepted");
       settings.style.display = "none";
       banner.classList.remove("show");
+      checkForm();
     }
 
-    window.onload = function () {
-      if (!localStorage.getItem("vltg_cookie_consent")) {
-        banner.classList.add("show");
-      }
+    window.onload = () => {
+      if (!hasCookieDecision()) banner.classList.add("show");
+      checkForm();
     };
   </script>
 
