@@ -5,10 +5,7 @@
   <title>VLTG Records – Demo Submission</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png">
-
-  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
@@ -25,16 +22,6 @@
       align-items: center;
       justify-content: center;
       color: #eaeaea;
-      overflow: hidden;
-    }
-
-    /* subtle industrial grain */
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
     }
 
     .card {
@@ -46,15 +33,14 @@
       box-shadow:
         0 0 28px rgba(0,255,140,0.18),
         inset 0 0 20px rgba(0,255,140,0.08);
+      position: relative;
+      overflow: hidden;
     }
 
     .logo {
       width: 92px;
       height: 92px;
       margin: 0 auto 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .logo img {
@@ -90,17 +76,11 @@
       color: #fff;
       font-size: 12px;
       outline: none;
-      transition: border 0.2s ease;
-    }
-
-    input:focus {
-      border-color: #00ff8c;
     }
 
     button {
       width: 100%;
       padding: 15px;
-      margin-top: 6px;
       border-radius: 14px;
       border: none;
       background: #00ff8c;
@@ -109,11 +89,6 @@
       letter-spacing: 1px;
       font-size: 13px;
       cursor: pointer;
-      transition: 0.15s ease;
-    }
-
-    button:hover {
-      background: #00e07c;
     }
 
     .follow {
@@ -127,11 +102,33 @@
       text-decoration: none;
       color: #00ff8c;
       opacity: 0.75;
-      transition: opacity 0.2s;
     }
 
-    .follow a:hover {
-      opacity: 1;
+    .screen {
+      transition: opacity 0.4s ease;
+    }
+
+    .hidden {
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      inset: 32px;
+    }
+
+    .thankyou {
+      text-align: center;
+    }
+
+    .check {
+      font-size: 42px;
+      color: #00ff8c;
+      margin-bottom: 14px;
+    }
+
+    .thankyou p {
+      font-size: 13px;
+      opacity: 0.75;
+      line-height: 1.6;
     }
   </style>
 </head>
@@ -139,25 +136,58 @@
 <body>
 
   <div class="card">
-    <div class="logo">
-      <img src="logo.png" alt="VLTG Records Logo">
+
+    <!-- FORM SCREEN -->
+    <form id="demoForm" class="screen">
+      <div class="logo">
+        <img src="logo.png" alt="VLTG Records Logo">
+      </div>
+
+      <h1>VLTG RECORDS</h1>
+      <div class="subtitle">DEMO SUBMISSIONS</div>
+
+      <!-- REQUIRED inputs -->
+      <input type="text" placeholder="ARTIST NAME" required>
+      <input type="email" placeholder="EMAIL" required>
+      <input type="text" placeholder="TRACK LINK" required>
+
+      <button type="submit">SEND DEMO</button>
+
+      <div class="follow">
+        <a href="https://instagram.com/vltgrecords" target="_blank">
+          FOLLOW @VLTGRECORDS
+        </a>
+      </div>
+    </form>
+
+    <!-- THANK YOU SCREEN -->
+    <div id="thankYouScreen" class="screen hidden thankyou">
+      <div class="check">✓</div>
+      <h1>THANK YOU</h1>
+      <p>
+        Thank you for sending your demo.<br>
+        We’ll be listening to it soon.
+      </p>
     </div>
 
-    <h1>VLTG RECORDS</h1>
-    <div class="subtitle">DEMO SUBMISSIONS</div>
-
-    <input type="text" placeholder="ARTIST NAME">
-    <input type="email" placeholder="EMAIL">
-    <input type="text" placeholder="TRACK LINK">
-
-    <button>SEND DEMO</button>
-
-    <div class="follow">
-      <a href="https://instagram.com/vltgrecords" target="_blank">
-        FOLLOW @VLTGRECORDS
-      </a>
-    </div>
   </div>
+
+  <script>
+    const form = document.getElementById("demoForm");
+    const thankYou = document.getElementById("thankYouScreen");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault(); // stop page reload
+
+      if (!form.checkValidity()) {
+        form.reportValidity(); // shows browser validation
+        return;
+      }
+
+      form.classList.add("hidden");
+      thankYou.classList.remove("hidden");
+    });
+  </script>
 
 </body>
 </html>
