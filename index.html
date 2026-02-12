@@ -2,13 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>VLTG Records – Demo Submission</title>
+  <title>VLTG Records – Demo Drop</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png">
-
-  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
@@ -31,19 +28,17 @@
       width: 360px;
       padding: 32px;
       border-radius: 22px;
-      background: rgba(10, 10, 10, 0.85);
+      background: rgba(10, 10, 10, 0.9);
       border: 1px solid rgba(0, 255, 140, 0.35);
       box-shadow:
         0 0 28px rgba(0,255,140,0.18),
         inset 0 0 20px rgba(0,255,140,0.08);
-      position: relative;
-      overflow: hidden;
     }
 
     .logo {
-      width: 92px;
-      height: 92px;
-      margin: 0 auto 16px;
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 14px;
     }
 
     .logo img {
@@ -56,26 +51,33 @@
     h1 {
       text-align: center;
       font-size: 24px;
-      letter-spacing: 1.8px;
-      margin: 6px 0 4px;
+      letter-spacing: 1.5px;
+      margin: 6px 0;
       color: #00ff8c;
     }
 
     .subtitle {
       text-align: center;
       font-size: 11px;
-      opacity: 0.55;
-      margin-bottom: 26px;
-      letter-spacing: 1px;
+      opacity: 0.6;
+      margin-bottom: 18px;
+    }
+
+    .rules {
+      font-size: 11px;
+      opacity: 0.6;
+      text-align: center;
+      margin-bottom: 22px;
+      line-height: 1.5;
     }
 
     input {
       width: 100%;
-      padding: 14px 15px;
+      padding: 13px 14px;
       margin-bottom: 14px;
       border-radius: 12px;
       background: rgba(0,0,0,0.7);
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
       color: #fff;
       font-size: 12px;
       outline: none;
@@ -87,60 +89,58 @@
 
     button {
       width: 100%;
-      padding: 15px;
+      padding: 14px;
       border-radius: 14px;
       border: none;
       background: #00ff8c;
       color: #000;
       font-weight: 800;
-      letter-spacing: 1px;
       font-size: 13px;
       cursor: pointer;
     }
 
-    button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    .follow {
-      margin-top: 20px;
+    .footer {
+      margin-top: 18px;
       text-align: center;
-    }
-
-    .follow a {
       font-size: 11px;
-      letter-spacing: 1px;
+      opacity: 0.65;
+    }
+
+    .footer a {
+      color: #00ff8c;
       text-decoration: none;
+      margin: 0 6px;
+    }
+
+    /* COOKIE BANNER */
+    #cookieBanner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #0b0b0b;
+      color: #fff;
+      padding: 14px 18px;
+      font-size: 12px;
+      display: none;
+      z-index: 9999;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    #cookieBanner a {
       color: #00ff8c;
-      opacity: 0.75;
+      text-decoration: none;
     }
 
-    .screen {
-      transition: opacity 0.4s ease;
-    }
-
-    .hidden {
-      opacity: 0;
-      pointer-events: none;
-      position: absolute;
-      inset: 32px;
-    }
-
-    .thankyou {
-      text-align: center;
-    }
-
-    .check {
-      font-size: 42px;
-      color: #00ff8c;
-      margin-bottom: 14px;
-    }
-
-    .thankyou p {
+    #cookieSettings {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      color: #fff;
+      z-index: 10000;
+      padding: 40px;
       font-size: 13px;
-      opacity: 0.75;
-      line-height: 1.6;
     }
   </style>
 </head>
@@ -148,87 +148,84 @@
 <body>
 
   <div class="card">
-
-    <!-- FORM SCREEN -->
-    <form id="demoForm" class="screen">
-      <div class="logo">
-        <img src="logo.png" alt="VLTG Records Logo">
-      </div>
-
-      <h1>VLTG RECORDS</h1>
-      <div class="subtitle">DEMO SUBMISSIONS</div>
-
-      <input type="text" placeholder="ARTIST NAME" required>
-      <input type="email" placeholder="EMAIL" required>
-      <input type="text" placeholder="TRACK LINK (SoundCloud / Drive)" required>
-
-      <button type="submit">SEND DEMO</button>
-
-      <div class="follow">
-        <a href="https://instagram.com/vltgrecords" target="_blank">
-          FOLLOW @VLTGRECORDS
-        </a>
-      </div>
-    </form>
-
-    <!-- THANK YOU SCREEN -->
-    <div id="thankYouScreen" class="screen hidden thankyou">
-      <div class="check">✓</div>
-      <h1>THANK YOU</h1>
-      <p>
-        Thank you for sending your demo.<br>
-        We’ll be listening to it soon.
-      </p>
+    <div class="logo">
+      <img src="logo.png" alt="VLTG Records Logo">
     </div>
 
+    <h1>VLTG RECORDS</h1>
+    <div class="subtitle">DEMO DROP</div>
+
+    <div class="rules">
+      Send original demo tracks only.<br>
+      No remixes. No bootlegs.<br>
+      SoundCloud links required.
+    </div>
+
+    <input type="text" placeholder="ARTIST NAME" required>
+    <input type="email" placeholder="EMAIL" required>
+    <input type="url" placeholder="SOUNDCLOUD PROFILE LINK" required>
+    <input type="url" placeholder="SOUNDCLOUD TRACK LINK" required>
+
+    <button>SEND DEMO</button>
+
+    <div class="footer">
+      <a href="terms.html">Terms of Use</a> |
+      <a href="privacy.html">Privacy Policy</a> |
+      <a href="cookies.html">Cookie Policy</a>
+    </div>
   </div>
 
-  <!-- EmailJS -->
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <!-- COOKIE BANNER -->
+  <div id="cookieBanner">
+    We use cookies to ensure basic site functionality.
+    By continuing, you agree to our
+    <a href="privacy.html">Privacy Policy</a> and
+    <a href="cookies.html">Cookie Policy</a>.
+    <br><br>
+    <button onclick="acceptCookies()" style="background:#00ff8c;border:none;padding:6px 12px;font-weight:700;cursor:pointer;">
+      Accept
+    </button>
+    <button onclick="openCookieSettings()" style="background:none;border:1px solid #555;color:#fff;padding:6px 12px;margin-left:6px;cursor:pointer;">
+      Cookie Settings
+    </button>
+  </div>
 
+  <!-- COOKIE SETTINGS -->
+  <div id="cookieSettings">
+    <h3>Cookie Settings</h3>
+    <p>Essential cookies are required for basic site functionality.</p>
+    <label>
+      <input type="checkbox" checked disabled>
+      Essential cookies
+    </label>
+    <br><br>
+    <button onclick="saveCookieSettings()" style="background:#00ff8c;border:none;padding:8px 14px;font-weight:700;cursor:pointer;">
+      Save & Continue
+    </button>
+  </div>
+
+  <!-- COOKIE SCRIPT -->
   <script>
-    (function () {
-      emailjs.init("Dq6SIXC7zmUHhLQ7j");
-    })();
+    function acceptCookies() {
+      localStorage.setItem("vltg_cookie_consent", "true");
+      document.getElementById("cookieBanner").style.display = "none";
+    }
 
-    const form = document.getElementById("demoForm");
-    const thankYou = document.getElementById("thankYouScreen");
-    const button = form.querySelector("button");
+    function openCookieSettings() {
+      document.getElementById("cookieSettings").style.display = "block";
+    }
 
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
+    function saveCookieSettings() {
+      localStorage.setItem("vltg_cookie_consent", "true");
+      document.getElementById("cookieSettings").style.display = "none";
+      document.getElementById("cookieBanner").style.display = "none";
+    }
 
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
+    window.onload = function () {
+      if (!localStorage.getItem("vltg_cookie_consent")) {
+        document.getElementById("cookieBanner").style.display = "block";
       }
-
-      button.disabled = true;
-
-      const artistName = form.querySelector('input[placeholder="ARTIST NAME"]').value;
-      const artistEmail = form.querySelector('input[type="email"]').value;
-      const trackLink = form.querySelector('input[placeholder^="TRACK"]').value;
-
-      emailjs.send(
-        "service_kc0wjba",
-        "template_opaptos",
-        {
-          artist_name: artistName,
-          artist_email: artistEmail,
-          track_link: trackLink
-        }
-      ).then(
-        function () {
-          form.classList.add("hidden");
-          thankYou.classList.remove("hidden");
-        },
-        function (error) {
-          console.error("EmailJS error:", error);
-          alert("Something went wrong. Please try again.");
-          button.disabled = false;
-        }
-      );
-    });
+    };
   </script>
 
 </body>
