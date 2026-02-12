@@ -20,165 +20,118 @@
     body {
       margin: 0;
       min-height: 100vh;
-      background:
-        radial-gradient(circle at top, #0e0e0e, #000),
-        repeating-linear-gradient(
-          180deg,
-          rgba(255,255,255,0.02) 0px,
-          rgba(255,255,255,0.02) 1px,
-          transparent 1px,
-          transparent 4px
-        );
+      background: radial-gradient(circle at top, #0c0c0c, #000);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
+      color: #eaeaea;
       overflow: hidden;
     }
 
-    /* floating neon fog */
-    body::before {
+    /* subtle industrial grain */
+    body::after {
       content: "";
-      position: absolute;
-      width: 700px;
-      height: 700px;
-      background: radial-gradient(circle, rgba(0,255,140,0.18), transparent 60%);
-      filter: blur(140px);
-      animation: drift 10s ease-in-out infinite;
-    }
-
-    @keyframes drift {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-60px); }
-      100% { transform: translateY(0); }
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
     }
 
     .card {
-      position: relative;
       width: 360px;
-      padding: 30px;
-      border-radius: 26px;
-      background: rgba(15, 15, 15, 0.8);
-      backdrop-filter: blur(18px);
-      border: 2px solid transparent;
-      background-clip: padding-box;
+      padding: 32px;
+      border-radius: 22px;
+      background: rgba(10, 10, 10, 0.85);
+      border: 1px solid rgba(0, 255, 140, 0.35);
       box-shadow:
-        0 0 45px rgba(0,255,140,0.35),
-        inset 0 0 25px rgba(0,255,140,0.12);
-    }
-
-    /* animated neon outline */
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: -2px;
-      border-radius: 28px;
-      background: linear-gradient(120deg, #00ff99, #00c6ff, #00ff99);
-      filter: blur(8px);
-      opacity: 0.7;
-      z-index: -1;
-      animation: glowmove 6s linear infinite;
-    }
-
-    @keyframes glowmove {
-      0% { filter: blur(8px) hue-rotate(0deg); }
-      100% { filter: blur(8px) hue-rotate(360deg); }
+        0 0 28px rgba(0,255,140,0.18),
+        inset 0 0 20px rgba(0,255,140,0.08);
     }
 
     .logo {
-      width: 100px;
-      height: 100px;
-      margin: 0 auto 14px;
-      border-radius: 18px;
-      background: #000;
+      width: 92px;
+      height: 92px;
+      margin: 0 auto 16px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 35px rgba(0,255,140,0.9);
     }
 
     .logo img {
-      width: 85%;
-      height: 85%;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
-      filter: drop-shadow(0 0 10px rgba(0,255,140,0.8));
+      filter: drop-shadow(0 0 12px rgba(0,255,140,0.6));
     }
 
     h1 {
       text-align: center;
-      font-size: 26px;
-      letter-spacing: 2px;
-      margin: 8px 0 4px;
-      color: #00ff99;
-      text-shadow: 0 0 14px rgba(0,255,140,0.85);
+      font-size: 24px;
+      letter-spacing: 1.8px;
+      margin: 6px 0 4px;
+      color: #00ff8c;
     }
 
     .subtitle {
       text-align: center;
-      font-size: 12px;
-      opacity: 0.65;
-      margin-bottom: 24px;
+      font-size: 11px;
+      opacity: 0.55;
+      margin-bottom: 26px;
+      letter-spacing: 1px;
     }
 
     input {
       width: 100%;
-      padding: 13px 15px;
+      padding: 14px 15px;
       margin-bottom: 14px;
-      border-radius: 14px;
-      background: rgba(0,0,0,0.65);
-      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      background: rgba(0,0,0,0.7);
+      border: 1px solid rgba(255,255,255,0.08);
       color: #fff;
       font-size: 12px;
       outline: none;
-      transition: 0.2s;
+      transition: border 0.2s ease;
     }
 
     input:focus {
-      border-color: #00ff99;
-      box-shadow: 0 0 14px rgba(0,255,140,0.6);
+      border-color: #00ff8c;
     }
 
     button {
       width: 100%;
       padding: 15px;
-      border-radius: 16px;
+      margin-top: 6px;
+      border-radius: 14px;
       border: none;
-      font-size: 14px;
-      letter-spacing: 1px;
-      font-weight: 800;
-      cursor: pointer;
+      background: #00ff8c;
       color: #000;
-      background: linear-gradient(90deg, #00ff99, #00c6ff);
-      box-shadow: 0 0 30px rgba(0,255,140,0.8);
+      font-weight: 800;
+      letter-spacing: 1px;
+      font-size: 13px;
+      cursor: pointer;
       transition: 0.15s ease;
     }
 
     button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 45px rgba(0,255,140,1);
+      background: #00e07c;
     }
 
     .follow {
-      margin-top: 18px;
+      margin-top: 20px;
       text-align: center;
     }
 
     .follow a {
-      display: inline-block;
-      padding: 10px 18px;
-      border-radius: 999px;
       font-size: 11px;
       letter-spacing: 1px;
       text-decoration: none;
-      color: #00ff99;
-      border: 1px solid rgba(0,255,140,0.5);
-      box-shadow: inset 0 0 10px rgba(0,255,140,0.2);
-      transition: 0.2s;
+      color: #00ff8c;
+      opacity: 0.75;
+      transition: opacity 0.2s;
     }
 
     .follow a:hover {
-      background: rgba(0,255,140,0.15);
-      box-shadow: 0 0 20px rgba(0,255,140,0.6);
+      opacity: 1;
     }
   </style>
 </head>
@@ -186,17 +139,16 @@
 <body>
 
   <div class="card">
-
     <div class="logo">
       <img src="logo.png" alt="VLTG Records Logo">
     </div>
 
     <h1>VLTG RECORDS</h1>
-    <div class="subtitle">DEMO SUBMISSIONS OPEN</div>
+    <div class="subtitle">DEMO SUBMISSIONS</div>
 
     <input type="text" placeholder="ARTIST NAME">
     <input type="email" placeholder="EMAIL">
-    <input type="text" placeholder="TRACK LINK (SoundCloud / Drive)">
+    <input type="text" placeholder="TRACK LINK">
 
     <button>SEND DEMO</button>
 
@@ -205,7 +157,6 @@
         FOLLOW @VLTGRECORDS
       </a>
     </div>
-
   </div>
 
 </body>
