@@ -56,10 +56,10 @@
 
     .rules {
       font-size: 11px;
-      opacity: 0.6;
+      opacity: 0.65;
       text-align: center;
       margin-bottom: 22px;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     input {
@@ -108,7 +108,8 @@
       font-size: 10px;
       text-align: center;
       margin-top: 8px;
-      opacity: 0.5;
+      opacity: 0.55;
+      min-height: 14px;
     }
 
     .footer {
@@ -142,8 +143,6 @@
 
     #cookieBanner.show { transform: translateY(0); }
 
-    #cookieBanner a { color: #00ff8c; text-decoration: none; }
-
     #cookieSettings {
       display: none;
       position: fixed;
@@ -168,14 +167,14 @@
     <div class="subtitle">DEMO SUBMISSIONS</div>
 
     <div class="rules">
-      Original demos only.<br>
-      No remixes. No bootlegs.<br>
-      SoundCloud track links only.
+      Unreleased tracks only.<br>
+      Private SoundCloud links only.<br>
+      Links must be accessible only via URL.
     </div>
 
     <input type="text" id="name" placeholder="ARTIST NAME">
     <input type="email" id="email" placeholder="EMAIL">
-    <input type="url" id="track" placeholder="SOUNDCLOUD TRACK LINK">
+    <input type="url" id="track" placeholder="PRIVATE SOUNDCLOUD TRACK LINK">
 
     <button id="submitBtn" disabled>SEND DEMO</button>
     <div class="tooltip" id="tooltip">
@@ -215,31 +214,47 @@
     const banner = document.getElementById("cookieBanner");
     const settings = document.getElementById("cookieSettings");
 
-    function validSoundCloud(url) {
-      return url.includes("soundcloud.com");
-    }
-
     function hasCookieDecision() {
       return localStorage.getItem("vltg_cookie_consent");
     }
 
+    function isPrivateSoundCloudLink(url) {
+      return (
+        url.includes("soundcloud.com") &&
+        url.includes("/s-")
+      );
+    }
+
     function checkForm() {
       let filled = true;
-      inputs.forEach(i => { if (!i.value.trim()) filled = false; });
+      inputs.forEach(i => {
+        if (!i.value.trim()) filled = false;
+      });
 
-      const trackValid = validSoundCloud(document.getElementById("track").value);
+      const track = document.getElementById("track").value.trim();
+      const privateSC = isPrivateSoundCloudLink(track);
 
-      if (filled && trackValid && hasCookieDecision()) {
-        btn.disabled = false;
-        btn.classList.add("active");
-        tooltip.textContent = "Ready to submit";
-      } else {
+      if (!filled) {
         btn.disabled = true;
-        btn.classList.remove("active");
-        tooltip.textContent = trackValid
-          ? "Fill all fields & choose cookie preference"
-          : "Only SoundCloud track links allowed";
+        tooltip.textContent = "Fill all fields & choose cookie preference";
+        return;
       }
+
+      if (!privateSC) {
+        btn.disabled = true;
+        tooltip.textContent = "Only PRIVATE SoundCloud links are accepted";
+        return;
+      }
+
+      if (!hasCookieDecision()) {
+        btn.disabled = true;
+        tooltip.textContent = "Please accept or deny cookies to continue";
+        return;
+      }
+
+      btn.disabled = false;
+      btn.classList.add("active");
+      tooltip.textContent = "Ready to submit";
     }
 
     inputs.forEach(i => i.addEventListener("input", checkForm));
