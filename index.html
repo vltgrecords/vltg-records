@@ -24,10 +24,9 @@ padding: 40px 30px; width: 100%; max-width: 450px; text-align: center;
 .logo-img { width: 130px; margin-bottom: 20px; filter: drop-shadow(0 0 15px rgba(57, 255, 20, 0.4)); }
 h1 { font-weight: 800; font-size: 2rem; background: linear-gradient(90deg, #39FF14, #00C6FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 p { color: #ccc; margin-bottom: 30px; }
-input { width: 100%; padding: 16px; margin-bottom: 20px; background: rgba(0, 0, 0, 0.5); border: 2px solid transparent; border-radius: 12px; color: #fff; outline: none; transition: 0.3s; }
-input:focus { border-color: #39FF14; box-shadow: 0 0 15px rgba(57, 255, 20, 0.3); }
-button { width: 100%; padding: 18px; border: none; border-radius: 12px; background: linear-gradient(90deg, #39FF14, #00C6FF); color: #000; font-weight: 800; font-size: 1.1rem; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
-.insta-btn { margin-top: 25px; display: inline-block; color: #fff; text-decoration: none; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.3); padding: 10px 20px; border-radius: 50px; transition: 0.3s; }
+input { width: 100%; padding: 16px; margin-bottom: 20px; background: rgba(0, 0, 0, 0.5); border: 2px solid transparent; border-radius: 12px; color: #fff; outline: none; }
+button { width: 100%; padding: 18px; border: none; border-radius: 12px; background: linear-gradient(90deg, #39FF14, #00C6FF); color: #000; font-weight: 800; font-size: 1.1rem; text-transform: uppercase; cursor: pointer; }
+.insta-btn { margin-top: 25px; display: inline-block; color: #fff; text-decoration: none; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.3); padding: 10px 20px; border-radius: 50px; }
 </style>
 </head>
 <body>
@@ -35,32 +34,6 @@ button { width: 100%; padding: 18px; border: none; border-radius: 12px; backgrou
 <img src="logo.png" alt="VLTG Logo" class="logo-img">
 <h1>VLTG Records</h1>
 <p>SEND US YOUR BEST WORK</p>
-<form id="vltg-form">
-<input type="text" name="artistName" required placeholder="Artist Name">
-<input type="email" name="email" required placeholder="Email Address">
-<input type="url" name="trackLink" required placeholder="SoundCloud / Drive Link">
-<button type="submit" id="submit-btn">Submit Demo</button>
-</form>
-<a href="" target="_blank" class="insta-btn">Follow @vltgrecords</a>
-</div>
-<script>
-var form = document.getElementById("vltg-form");
-form.addEventListener("submit", function(event) {
-event.preventDefault();
-var status = document.getElementById("submit-btn");
-var data = new FormData(event.target);
-status.innerHTML = "SENDING...";
-status.disabled = true;
-fetch("", {
-method: "POST",
-body: data,
-headers: { 'Accept': 'application/json' }
-}).then(function(response) {
-window.location.href = "";
-}).catch(function(error) {
-window.location.href = "";
-});
-});
-</script>
+
 </body>
 </html>
