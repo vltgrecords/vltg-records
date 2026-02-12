@@ -5,7 +5,10 @@
   <title>VLTG Records – Demo Submission</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
@@ -78,6 +81,10 @@
       outline: none;
     }
 
+    input:focus {
+      border-color: #00ff8c;
+    }
+
     button {
       width: 100%;
       padding: 15px;
@@ -89,6 +96,11 @@
       letter-spacing: 1px;
       font-size: 13px;
       cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
 
     .follow {
@@ -146,10 +158,9 @@
       <h1>VLTG RECORDS</h1>
       <div class="subtitle">DEMO SUBMISSIONS</div>
 
-      <!-- REQUIRED inputs -->
       <input type="text" placeholder="ARTIST NAME" required>
       <input type="email" placeholder="EMAIL" required>
-      <input type="text" placeholder="TRACK LINK" required>
+      <input type="text" placeholder="TRACK LINK (SoundCloud / Drive)" required>
 
       <button type="submit">SEND DEMO</button>
 
@@ -172,20 +183,51 @@
 
   </div>
 
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
   <script>
+    (function () {
+      emailjs.init("Dq6SIXC7zmUHhLQ7j");
+    })();
+
     const form = document.getElementById("demoForm");
     const thankYou = document.getElementById("thankYouScreen");
+    const button = form.querySelector("button");
 
     form.addEventListener("submit", function (e) {
-      e.preventDefault(); // stop page reload
+      e.preventDefault();
 
       if (!form.checkValidity()) {
-        form.reportValidity(); // shows browser validation
+        form.reportValidity();
         return;
       }
 
-      form.classList.add("hidden");
-      thankYou.classList.remove("hidden");
+      button.disabled = true;
+
+      const artistName = form.querySelector('input[placeholder="ARTIST NAME"]').value;
+      const artistEmail = form.querySelector('input[type="email"]').value;
+      const trackLink = form.querySelector('input[placeholder^="TRACK"]').value;
+
+      emailjs.send(
+        "service_kc0wjba",
+        "template_opaptos",
+        {
+          artist_name: artistName,
+          artist_email: artistEmail,
+          track_link: trackLink
+        }
+      ).then(
+        function () {
+          form.classList.add("hidden");
+          thankYou.classList.remove("hidden");
+        },
+        function (error) {
+          console.error("EmailJS error:", error);
+          alert("Something went wrong. Please try again.");
+          button.disabled = false;
+        }
+      );
     });
   </script>
 
