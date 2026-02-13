@@ -106,6 +106,24 @@
       100% { transform: scale(1); }
     }
 
+    /* FOLLOW BUTTON */
+    .follow-btn {
+      margin-top: 10px;
+      background: transparent;
+      color: #00ff8c;
+      border: 1px solid rgba(0,255,140,0.5);
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.25s ease;
+    }
+
+    .follow-btn:hover {
+      background: #00ff8c;
+      color: #000;
+      box-shadow: 0 0 14px rgba(0,255,140,0.5);
+      transform: translateY(-1px);
+    }
+
     .tooltip {
       font-size: 10px;
       text-align: center;
@@ -180,6 +198,12 @@
     <input type="url" id="track" placeholder="PRIVATE SOUNDCLOUD TRACK LINK">
 
     <button id="submitBtn" disabled>SEND DEMO</button>
+
+    <!-- FOLLOW BUTTON -->
+    <a href="https://instagram.com/vltgrecords" target="_blank">
+      <button class="follow-btn">Follow @vltgrecords</button>
+    </a>
+
     <div class="tooltip" id="tooltip">
       Fill all fields & choose cookie preference
     </div>
@@ -189,13 +213,6 @@
       <a href="terms.html">Terms of Use</a> |
       <a href="privacy.html">Privacy Policy</a> |
       <a href="cookies.html">Cookie Policy</a>
-    </div>
-
-    <!-- SOCIAL -->
-    <div class="footer" style="margin-top:10px;">
-      <a href="https://instagram.com/vltgrecords" target="_blank">
-        Instagram @vltgrecords
-      </a>
     </div>
   </div>
 
