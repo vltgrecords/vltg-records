@@ -8,6 +8,9 @@
   <link rel="icon" href="favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
 
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
   <style>
     * { box-sizing: border-box; font-family: 'Orbitron', sans-serif; }
 
@@ -45,7 +48,6 @@
       color: #00ff8c;
       margin: 6px 0;
       font-size: 24px;
-      letter-spacing: 1.2px;
     }
 
     .subtitle {
@@ -53,7 +55,6 @@
       font-size: 11px;
       opacity: 0.6;
       margin-bottom: 18px;
-      letter-spacing: 1px;
     }
 
     .rules {
@@ -88,22 +89,12 @@
       font-weight: 800;
       font-size: 13px;
       cursor: pointer;
-      transition: transform 0.25s ease, opacity 0.25s ease;
+      transition: 0.25s ease;
     }
 
     button:disabled {
       opacity: 0.4;
       cursor: not-allowed;
-    }
-
-    button.active {
-      animation: pulse 0.6s ease;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
     }
 
     .follow-btn {
@@ -112,15 +103,12 @@
       color: #00ff8c;
       border: 1px solid rgba(0,255,140,0.5);
       font-size: 12px;
-      font-weight: 600;
-      transition: all 0.25s ease;
     }
 
     .follow-btn:hover {
       background: #00ff8c;
       color: #000;
       box-shadow: 0 0 14px rgba(0,255,140,0.5);
-      transform: translateY(-1px);
     }
 
     .tooltip {
@@ -152,162 +140,149 @@
       right: 0;
       background: #0b0b0b;
       color: #fff;
-      padding: 14px 18px;
-      font-size: 12px;
-      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 14px;
       transform: translateY(100%);
-      transition: transform 0.4s ease;
-      z-index: 9999;
+      transition: 0.4s;
     }
 
     #cookieBanner.show { transform: translateY(0); }
-
-    #cookieSettings {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      color: #fff;
-      padding: 40px;
-      z-index: 10000;
-      font-size: 13px;
-    }
   </style>
 </head>
 
 <body>
 
-  <div class="card">
-    <div class="logo">
-      <img src="logo.png" alt="VLTG Records">
-    </div>
-
-    <h1>VLTG RECORDS</h1>
-    <div class="subtitle">DEMO SUBMISSIONS</div>
-
-    <div class="rules">
-      Unreleased tracks only.<br>
-      SoundCloud or private file links only.<br>
-      No remixes or bootlegs.
-    </div>
-
-    <input type="text" id="name" placeholder="ARTIST NAME">
-    <input type="email" id="email" placeholder="EMAIL">
-    <input type="url" id="track" placeholder="SOUNDCLOUD / DRIVE / DROPBOX LINK">
-
-    <button id="submitBtn" disabled>SEND DEMO</button>
-
-    <a href="https://instagram.com/vltgrecords" target="_blank">
-      <button class="follow-btn">Follow @vltgrecords</button>
-    </a>
-
-    <div class="tooltip" id="tooltip">
-      Fill all fields & choose cookie preference
-    </div>
-
-    <div class="footer">
-      <a href="terms.html">Terms of Use</a> |
-      <a href="privacy.html">Privacy Policy</a> |
-      <a href="cookies.html">Cookie Policy</a>
-    </div>
+<div class="card">
+  <div class="logo">
+    <img src="logo.png">
   </div>
 
-  <div id="cookieBanner">
-    We use essential cookies only.
-    <a href="privacy.html">Privacy Policy</a> &
+  <h1>VLTG RECORDS</h1>
+  <div class="subtitle">DEMO SUBMISSIONS</div>
+
+  <div class="rules">
+    Unreleased tracks only.<br>
+    SoundCloud or private file links only.<br>
+    No remixes or bootlegs.
+  </div>
+
+  <input type="text" id="name" placeholder="ARTIST NAME">
+  <input type="email" id="email" placeholder="EMAIL">
+  <input type="url" id="track" placeholder="SOUNDCLOUD / DRIVE / DROPBOX LINK">
+
+  <button id="submitBtn" onclick="sendDemo()" disabled>SEND DEMO</button>
+
+  <a href="https://instagram.com/vltgrecords" target="_blank">
+    <button class="follow-btn">Follow @vltgrecords</button>
+  </a>
+
+  <div class="tooltip" id="tooltip">
+    Fill all fields & choose cookie preference
+  </div>
+
+  <div class="footer">
+    <a href="terms.html">Terms of Use</a> |
+    <a href="privacy.html">Privacy Policy</a> |
     <a href="cookies.html">Cookie Policy</a>
-    <br><br>
-    <button onclick="acceptCookies()">Accept</button>
-    <button onclick="denyCookies()" style="margin-left:6px;background:none;border:1px solid #555;color:#fff;">Deny</button>
-    <button onclick="openCookieSettings()" style="margin-left:6px;background:none;border:1px solid #555;color:#fff;">Settings</button>
   </div>
+</div>
 
-  <div id="cookieSettings">
-    <h3>Cookie Settings</h3>
-    <p>Only essential cookies are used and cannot be disabled.</p>
-    <button onclick="saveCookieSettings()">Save & Continue</button>
-  </div>
+<div id="cookieBanner">
+  We use cookies.
+  <button onclick="acceptCookies()">Accept</button>
+  <button onclick="denyCookies()">Deny</button>
+</div>
 
-  <script>
-    const inputs = document.querySelectorAll("input");
-    const btn = document.getElementById("submitBtn");
-    const tooltip = document.getElementById("tooltip");
-    const banner = document.getElementById("cookieBanner");
-    const settings = document.getElementById("cookieSettings");
+<script>
+emailjs.init("Dq6SIXC7zmUHhLQ7j");
 
-    function hasCookieDecision() {
-      return localStorage.getItem("vltg_cookie_consent");
-    }
+const inputs = document.querySelectorAll("input");
+const btn = document.getElementById("submitBtn");
+const tooltip = document.getElementById("tooltip");
 
-    function isValidTrackLink(url) {
-      return (
-        url.includes("soundcloud.com") ||
-        url.includes("drive.google.com") ||
-        url.includes("dropbox.com")
-      );
-    }
+function hasCookieDecision() {
+  return localStorage.getItem("vltg_cookie_consent");
+}
 
-    function checkForm() {
-      let filled = true;
-      inputs.forEach(i => {
-        if (!i.value.trim()) filled = false;
-      });
+function isValidTrackLink(url) {
+  return url.includes("soundcloud.com") ||
+         url.includes("drive.google.com") ||
+         url.includes("dropbox.com");
+}
 
-      const track = document.getElementById("track").value.trim();
+function checkForm() {
+  let filled = true;
+  inputs.forEach(i => { if (!i.value.trim()) filled = false; });
 
-      if (!filled) {
-        btn.disabled = true;
-        tooltip.textContent = "Fill all fields & choose cookie preference";
-        return;
-      }
+  const track = document.getElementById("track").value.trim();
 
-      if (!isValidTrackLink(track)) {
-        btn.disabled = true;
-        tooltip.textContent = "Use SoundCloud, Google Drive, or Dropbox links only";
-        return;
-      }
+  if (!filled) {
+    btn.disabled = true;
+    tooltip.textContent = "Fill all fields";
+    return;
+  }
 
-      if (!hasCookieDecision()) {
-        btn.disabled = true;
-        tooltip.textContent = "Please accept or deny cookies to continue";
-        return;
-      }
+  if (!isValidTrackLink(track)) {
+    btn.disabled = true;
+    tooltip.textContent = "Use SoundCloud, Drive or Dropbox links";
+    return;
+  }
 
-      btn.disabled = false;
-      btn.classList.add("active");
-      tooltip.textContent = "Ready to submit";
-    }
+  if (!hasCookieDecision()) {
+    btn.disabled = true;
+    tooltip.textContent = "Accept cookies to continue";
+    return;
+  }
 
-    inputs.forEach(i => i.addEventListener("input", checkForm));
+  btn.disabled = false;
+  tooltip.textContent = "Ready to submit";
+}
 
-    function acceptCookies() {
-      localStorage.setItem("vltg_cookie_consent", "accepted");
-      banner.classList.remove("show");
-      checkForm();
-    }
+inputs.forEach(i => i.addEventListener("input", checkForm));
 
-    function denyCookies() {
-      localStorage.setItem("vltg_cookie_consent", "denied");
-      banner.classList.remove("show");
-      checkForm();
-    }
+function sendDemo() {
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const track = document.getElementById("track").value.trim();
 
-    function openCookieSettings() {
-      settings.style.display = "block";
-    }
+  if (!name || !email || !track) return;
 
-    function saveCookieSettings() {
-      localStorage.setItem("vltg_cookie_consent", "accepted");
-      settings.style.display = "none";
-      banner.classList.remove("show");
-      checkForm();
-    }
+  btn.innerText = "SENDING...";
+  btn.disabled = true;
 
-    window.onload = () => {
-      if (!hasCookieDecision()) banner.classList.add("show");
-      checkForm();
-    };
-  </script>
+  emailjs.send("service_kc0wjba", "template_opaptos", {
+    artist_name: name,
+    artist_email: email,
+    track_link: track
+  }).then(() => {
+    btn.innerText = "SENT ✓";
+    tooltip.textContent = "Demo submitted!";
+  }).catch((err) => {
+    console.error(err);
+    btn.innerText = "SEND DEMO";
+    btn.disabled = false;
+    tooltip.textContent = "Error. Try again.";
+  });
+}
+
+function acceptCookies() {
+  localStorage.setItem("vltg_cookie_consent", "accepted");
+  document.getElementById("cookieBanner").classList.remove("show");
+  checkForm();
+}
+
+function denyCookies() {
+  localStorage.setItem("vltg_cookie_consent", "denied");
+  document.getElementById("cookieBanner").classList.remove("show");
+  checkForm();
+}
+
+window.onload = () => {
+  if (!hasCookieDecision()) {
+    document.getElementById("cookieBanner").classList.add("show");
+  }
+  checkForm();
+};
+</script>
 
 </body>
-  </html>
+</html>
