@@ -106,7 +106,6 @@
       100% { transform: scale(1); }
     }
 
-    /* FOLLOW BUTTON */
     .follow-btn {
       margin-top: 10px;
       background: transparent;
@@ -146,7 +145,6 @@
       margin: 0 4px;
     }
 
-    /* COOKIE BANNER */
     #cookieBanner {
       position: fixed;
       bottom: 0;
@@ -189,17 +187,16 @@
 
     <div class="rules">
       Unreleased tracks only.<br>
-      Private SoundCloud links only.<br>
-      Links must be accessible via URL.
+      SoundCloud or private file links only.<br>
+      No remixes or bootlegs.
     </div>
 
     <input type="text" id="name" placeholder="ARTIST NAME">
     <input type="email" id="email" placeholder="EMAIL">
-    <input type="url" id="track" placeholder="PRIVATE SOUNDCLOUD TRACK LINK">
+    <input type="url" id="track" placeholder="SOUNDCLOUD / DRIVE / DROPBOX LINK">
 
     <button id="submitBtn" disabled>SEND DEMO</button>
 
-    <!-- FOLLOW BUTTON -->
     <a href="https://instagram.com/vltgrecords" target="_blank">
       <button class="follow-btn">Follow @vltgrecords</button>
     </a>
@@ -208,7 +205,6 @@
       Fill all fields & choose cookie preference
     </div>
 
-    <!-- LEGAL -->
     <div class="footer">
       <a href="terms.html">Terms of Use</a> |
       <a href="privacy.html">Privacy Policy</a> |
@@ -216,7 +212,6 @@
     </div>
   </div>
 
-  <!-- COOKIE BANNER -->
   <div id="cookieBanner">
     We use essential cookies only.
     <a href="privacy.html">Privacy Policy</a> &
@@ -227,14 +222,12 @@
     <button onclick="openCookieSettings()" style="margin-left:6px;background:none;border:1px solid #555;color:#fff;">Settings</button>
   </div>
 
-  <!-- COOKIE SETTINGS -->
   <div id="cookieSettings">
     <h3>Cookie Settings</h3>
     <p>Only essential cookies are used and cannot be disabled.</p>
     <button onclick="saveCookieSettings()">Save & Continue</button>
   </div>
 
-  <!-- SCRIPT -->
   <script>
     const inputs = document.querySelectorAll("input");
     const btn = document.getElementById("submitBtn");
@@ -246,8 +239,12 @@
       return localStorage.getItem("vltg_cookie_consent");
     }
 
-    function isPrivateSoundCloudLink(url) {
-      return url.includes("soundcloud.com") && url.includes("/s-");
+    function isValidTrackLink(url) {
+      return (
+        url.includes("soundcloud.com") ||
+        url.includes("drive.google.com") ||
+        url.includes("dropbox.com")
+      );
     }
 
     function checkForm() {
@@ -264,9 +261,9 @@
         return;
       }
 
-      if (!isPrivateSoundCloudLink(track)) {
+      if (!isValidTrackLink(track)) {
         btn.disabled = true;
-        tooltip.textContent = "Only PRIVATE SoundCloud links are accepted";
+        tooltip.textContent = "Use SoundCloud, Google Drive, or Dropbox links only";
         return;
       }
 
@@ -313,4 +310,4 @@
   </script>
 
 </body>
-</html>
+  </html>
